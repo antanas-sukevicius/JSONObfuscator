@@ -1,6 +1,6 @@
-const { getUniqueStrings, removeStartEndChar, encodeString, encodeJSON, writeFile, generateMappingFile } = require('./func')
+const { IsJsonString, getUniqueStrings, removeStartEndChar, encodeString, encodeJSON, writeFile, generateMappingFile } = require('./func')
 const defaultOutput_EncodedFileLocation = "./obfuscatedJSON.json"
-const defaultOutput_DecodedFileLocation = "./obfuscatedJSON.json"
+const defaultOutput_DecodedFileLocation = "./decodedJSON.json"
 const dedfaultMapingFile = "./mapping.json"
 
 /**
@@ -11,6 +11,7 @@ const dedfaultMapingFile = "./mapping.json"
  */
 module.exports.encode = (strJSON, obfuscatedJSONFilePath = defaultOutput_EncodedFileLocation, mapingFile = dedfaultMapingFile) => {
 
+    if (!IsJsonString) return 0;
     //Regex extracts strings in quotes
     const re = /"(.+?[^\\])"/g
 
@@ -45,14 +46,17 @@ module.exports.encode = (strJSON, obfuscatedJSONFilePath = defaultOutput_Encoded
  */
 module.exports.decode = (strJSON, strJSONMap, decodedJSONFilePath = defaultOutput_DecodedFileLocation) => {
 
+    if (!IsJsonString) return 0;
     objJSONMap = JSON.parse(strJSONMap)
 
     Object.keys(objJSONMap).forEach((key) => {
         strJSON = strJSON.replaceAll(`"${objJSONMap[key]}"`, `"${key}"`);
     })
 
+    let fileSaveStatus = writeFile(decodedJSONFilePath, strJSON) ? true : false
+    
     return {strDencodedJSON: strJSON,
-            strSaveFileStatus: writeFile(decodedJSONFilePath, strJSON) ? true : false
+            strSaveFileStatus: fileSaveStatus
     };
 }
 

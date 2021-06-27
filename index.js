@@ -7,16 +7,8 @@ const data = fs.readFileSync(inputJSONFilePath).toString();
 
 //Encode example
 const objCodedJSON = JSONObfuscator.encode(data);
-console.log(objCodedJSON.strEncodedJSON)
 
 //Decode Example
 const mappingJSON = fs.readFileSync("./mapping.json").toString();
 const obfuscatedJSON = fs.readFileSync("./obfuscatedJSON.json").toString();
 const objDecodedJSON = JSONObfuscator.decode(obfuscatedJSON, mappingJSON);
-
-
-console.log(objDecodedJSON.strDencodedJSON)
-
-
-
-

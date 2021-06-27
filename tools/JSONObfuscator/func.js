@@ -1,5 +1,15 @@
 const fs = require('fs');
 
+
+module.exports.IsJsonString = function (str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
 module.exports.getUniqueStrings = function (arrayOfStrings) {
     return arrayOfStrings.filter(function (elem, pos) {
         return arrayOfStrings.indexOf(elem) == pos;
@@ -30,21 +40,20 @@ module.exports.encodeJSON = function (JSONstring, codeMap) {
         let str = entry[0], strCoded = entry[1];
         JSONstring = JSONstring.replaceAll(`"${str}"`, `"${strCoded}"`)
     }
-
     return JSONstring;
 
 }
 
-module.exports.writeFile = function (filePath, str){
+module.exports.writeFile = function (filePath, str) {
     try {
         fs.writeFileSync(filePath, str);
-        return filePath;
     } catch (err) {
         return 0;
     }
+    return filePath;
 }
 
-module.exports.generateMappingFile = function (filePath, objMap){
+module.exports.generateMappingFile = function (filePath, objMap) {
     const strJSONMap = JSON.stringify(mapToObj(objMap));
     return module.exports.writeFile(filePath, strJSONMap)
 }

@@ -8,7 +8,6 @@
 Usage example: **"node index.js"**
 
 ### Encode:
-#
 ```js 
 //Saves encoded file, generates mapping files and gives an output object.
 const objCodedJSON = JSONObfuscator.encode(strJSON, obfuscatedJSONFilePath, mappingJSON)
@@ -24,8 +23,8 @@ objCodedJSON = {
 - **obfuscatedJSONFilePath** - Optional, on default saves file no current directory "./obfuscatedJSON.json".
 - **mappingJSON** - Optional, on default saves file on current directory "./mapping.json".
 
-### Decode:
 #
+### Decode:
 ```js 
 //Saves decoded JSON, gives an ouput object.
 const objDecodedJSON = JSONObfuscator.decode(obfuscatedJSON, mappingJSON, decodedJSONFilePath);
